@@ -9,17 +9,6 @@
         android:layout_height="200dp"
         android:id="@+id/relativeLayout">
 
-<<<<<<< HEAD
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox"
-        tools:layout_editor_absoluteX="123dp"
-        tools:layout_editor_absoluteY="103dp" />
-
-</android.support.constraint.ConstraintLayout>
-=======
         <com.daimajia.slider.library.SliderLayout
             android:id="@+id/slider"
             android:layout_width="match_parent"
@@ -59,4 +48,3 @@
     </GridView>
 
 </RelativeLayout>
->>>>>>> e1be60283d832436d6dbc6d57a6f153b5a73f01e
