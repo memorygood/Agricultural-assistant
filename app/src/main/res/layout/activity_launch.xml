@@ -5,4 +5,4 @@
     android:background="@mipmap/ic_launcher"
     android:orientation="vertical">
 
-</LinearLayout>
+    </LinearLayout>
