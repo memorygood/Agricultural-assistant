@@ -183,7 +183,7 @@
 s
         <TextView
             android:id="@+id/textview_register"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/btn_loginbyqq"
             android:layout_below="@+id/btn_loginbyqq"
@@ -191,11 +191,11 @@ s
             android:text="账号注册"
             android:clickable="true"
             android:onClick="onClick"
-            android:textSize="14dp"/>
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/textview_forgetpwd"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textview_register"
             android:layout_alignBottom="@+id/textview_register"
@@ -203,6 +203,6 @@ s
             android:text="忘记密码"
             android:onClick="onClick"
             android:clickable="true"
-            android:textSize="14dp"/>
+            android:textSize="16dp"/>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

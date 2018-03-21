@@ -29,4 +29,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.android.support:design:26.1.0'
+    compile files('libs/open_sdk_r5990_lite.jar')
+    compile 'com.hjm:BottomTabBar:1.0.0'
 }

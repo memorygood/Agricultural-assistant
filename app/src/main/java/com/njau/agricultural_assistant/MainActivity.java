@@ -1,11 +1,9 @@
 package com.njau.agricultural_assistant;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
@@ -27,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
             R.mipmap.ic_launcher};
 
     //定义图标下方的名称数组
@@ -36,12 +38,15 @@ public class MainActivity extends AppCompatActivity {
             "农业论坛",
             "市场资讯",
             "农业科技",
-            "农业微课"
+            "农业微课",
+            "订阅",
+            "收藏"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         mDemoSlider = (SliderLayout)findViewById(R.id.slider);
 
