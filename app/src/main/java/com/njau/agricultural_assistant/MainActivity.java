@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
             "农业科技",
             "农业微课",
             "订阅",
-            "收藏"
+            "收藏",
+            "个人信息"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {

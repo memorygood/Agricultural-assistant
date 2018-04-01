@@ -17,15 +17,5 @@ public class TabarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //加载启动图片
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_tabbar);
-        mBottomBar = (BottomTabBar) findViewById(R.id.bottom_bar);
-        mBottomBar.init(getSupportFragmentManager())
-                .setImgSize(90, 90)
-                .setFontSize(12)
-                .setTabPadding(4, 6, 10)
-                .setChangeColor(Color.GREEN, Color.RED)
-                .addTabItem("meun", R.mipmap.ic_launcher, MainActivity.class)
-                .addTabItem("我的", R.mipmap.ic_launcher, UserinfoActivity.class)
-                .isShowDivider(false);
     }
 }

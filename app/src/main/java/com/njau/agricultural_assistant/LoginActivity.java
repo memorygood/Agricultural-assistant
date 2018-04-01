@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity{
                     public void onComplete(Object response) {
                         Log.e(TAG,"登录成功"+response.toString());
                         finish();
-                        Intent intent = new Intent(LoginActivity.this, TabarActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                     @Override

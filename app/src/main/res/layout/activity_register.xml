@@ -1,120 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/activity_register"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/logoScreenBackground">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_register"
+        android:layout_width="382dp"
+        android:layout_height="match_parent"
+        android:background="@color/logoScreenBackground"
+        tools:layout_editor_absoluteX="2dp"
+        tools:ignore="MissingConstraints">
 
-    <RelativeLayout
-        android:id="@+id/rl_userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/rectangle_edittext">
-
-        <TextView
-            android:id="@+id/iv_phone"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_unameClear"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="手机号"
-            android:textSize="15sp" />
-
-        <View
-            android:id="@+id/viewName"
-            android:layout_width="1dip"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_phone"
-            android:background="@color/colorCursor" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/viewName"
-            android:background="@null"
-            android:ems="19"
-            android:hint="  用户名"
-            android:textColorHint="@color/colorCursor"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="15sp" />
-
-        <ImageView
-            android:id="@+id/iv_unameClear"
+       <com.njau.agricultural_assistant.Topbar
+           android:id="@+id/topbar"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:background="@color/list_focus_color"
+           app:leftBackground="@drawable/left_button_selector"
+           app:rightBackground="@drawable/right_button_selector"
+           app:titleText="用户注册"
+           app:titleTextColor="#FFF"
+           app:titleTextSize="6sp"
+             />
+        <RelativeLayout
+            android:id="@+id/rl_userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_backspace_grey600_24dp"
-            android:visibility="invisible" />
+            android:layout_marginTop="40dp"
+            android:background="@drawable/rectangle_edittext">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/iv_phone"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="手机号"
+                android:textSize="15sp" />
 
-    <RelativeLayout
-        android:id="@+id/rl_userPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_userName"
-        android:layout_marginTop="1dp"
-        android:background="@drawable/rectangle_edittext">
+            <View
+                android:id="@+id/viewName"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_phone"
+                android:background="@color/colorCursor" />
 
-        <ImageView
-            android:id="@+id/iv_userIconPwd"
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/viewName"
+                android:background="@null"
+                android:ems="19"
+                android:textColorHint="@color/colorCursor"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_userPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:paddingBottom="15dp"
-            android:paddingLeft="30dp"
-            android:paddingTop="15dp"
-            android:src="@mipmap/ic_edittextupwd" />
+            android:layout_below="@id/rl_userName"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/rectangle_edittext">
+            <TextView
+                android:id="@+id/iv_usr"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="用户名"
+                android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/iv_userIconUsr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:src="@mipmap/ic_edittextupwd" />
 
-        <View
-            android:id="@+id/viewPwd"
-            android:layout_width="1dip"
-            android:layout_height="20dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_userIconPwd"
-            android:background="@color/colorCursor" />
+            <View
+                android:id="@+id/viewUsr"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_userIconUsr"
+                android:background="@color/colorCursor" />
 
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/viewPwd"
-            android:background="@null"
-            android:drawablePadding="5dp"
-            android:ems="19"
-            android:hint=" 密码"
-            android:inputType="textPassword"
-            android:textColorHint="@color/colorCursor"
-            android:textCursorDrawable="@drawable/color_cursor"
-            android:textSize="15sp" />
-
-        <ImageView
-            android:id="@+id/iv_pwdClear"
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/viewUsr"
+                android:background="@null"
+                android:drawablePadding="5dp"
+                android:ems="19"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorCursor"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/ic_backspace_grey600_24dp"
-            android:visibility="invisible" />
-    </RelativeLayout>
+            android:layout_below="@id/rl_userPassword"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/rectangle_edittext">
+            <TextView
+                android:id="@+id/iv_email"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="邮箱"
+                android:textSize="15sp" />
+            <ImageView
+                android:id="@+id/iv_userIconPwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:src="@mipmap/ic_edittextupwd" />
+
+            <View
+                android:id="@+id/viewPwd"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_userIconPwd"
+                android:background="@color/colorCursor" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/viewPwd"
+                android:background="@null"
+                android:drawablePadding="5dp"
+                android:ems="19"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorCursor"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
