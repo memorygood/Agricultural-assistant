@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Agricultural-assistant</string>
+    <string name="fa_phone_square">&#xf098;</string>
+    <string name="fa_user">&#xf007;</string>
+    <string name="fa_unlock">&#xf09c;</string>
+    <string name="fa_unlock_alt">&#xf13e;</string>
+    <string name="fa_envelope">&#xf0e0;</string>
 </resources>
