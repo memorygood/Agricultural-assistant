@@ -1,5 +1,6 @@
 package com.njau.agricultural_assistant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher,
             R.mipmap.ic_launcher};
 
     //定义图标下方的名称数组
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             "农业微课",
             "订阅",
             "收藏",
-            "个人信息"
+            "我的"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +103,38 @@ public class MainActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this,name[position],Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this,name[position],Toast.LENGTH_LONG).show();
+                switch (position){
+                    case 0:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 1:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 3:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 4:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 5:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 6:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 7:
+                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        break;
+                    case 8:
+                        finish();
+                        Intent intent = new Intent(MainActivity.this,MineActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
     }

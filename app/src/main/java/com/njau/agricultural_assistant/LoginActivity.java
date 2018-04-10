@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,16 @@ import com.tencent.tauth.UiError;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URI;
+import java.net.URL;
 
 /**
  * Created by jy on 2018/3/19.
@@ -33,6 +44,9 @@ public class LoginActivity extends AppCompatActivity{
     public static Tencent mTencent;
     private UserInfo mUserInfo;
     private BaseUiListener mIUiListener;
+    EditText userName,password;
+    BufferedReader reader;
+    HttpURLConnection  connection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +57,8 @@ public class LoginActivity extends AppCompatActivity{
         Button btn1 = (Button) findViewById(R.id.btn_login);
         Button btn2 = (Button) findViewById(R.id.btn_loginbyqq);
         TextView t1 = (TextView) findViewById(R.id.textview_register);
+        userName = (EditText) findViewById(R.id.et_userName);
+        password = (EditText) findViewById(R.id.et_password);
         btn1.setOnClickListener(new onClickListener());
         btn2.setOnClickListener(new onClickListener());
         t1.setOnClickListener(new onClickListener());
@@ -59,13 +75,55 @@ public class LoginActivity extends AppCompatActivity{
                 case R.id.btn_loginbyqq:
                     tencentlogin();
                     break;
-
+                case R.id.btn_login:
+                    login();
+                    break;
             }
         }
     }
     private void enterRegister(){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
+    }
+    private void login(){
+        String username = userName.getText().toString().trim();
+        String passwd = password.getText().toString().trim();
+        if(username.equals("")){
+            Toast.makeText(LoginActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
+        }else if(passwd.equals("")){
+            Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+        }else{
+            try {
+               URL url = new URL("http://192.168.43.200:8086/nyzs/Login.action?username=" + username + "&passwd=" + passwd);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                InputStream in = connection.getInputStream();
+                //下面对获取到的输入流进行读取
+                reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null){
+                    response.append(line);
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }
     }
     private void tencentlogin() {
         mIUiListener = new BaseUiListener();
