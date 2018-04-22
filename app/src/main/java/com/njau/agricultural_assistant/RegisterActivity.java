@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hjm.bottomtabbar.BottomTabBar;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by lenovo on 2018/3/19.
@@ -63,5 +65,46 @@ public class RegisterActivity extends Activity {
 //                String passwd = tv_pwd.getText().toString().trim();
 //            }
 //            });
+        tj.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                try {
+                    Toast.makeText(RegisterActivity.this,"111",Toast.LENGTH_LONG).show();
+                    String address="http://192.168.43.200:8089/springmvc_mybatis/nyjs";
+                    HttpURLConnection connection = null;
+
+                    URL url = new URL(address);
+                    try {
+                        connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("GET");
+                        connection.setConnectTimeout(8000);
+                        connection.setReadTimeout(8000);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    //提交注册信息
+    public static void regist() throws MalformedURLException {
+        String address="http://192.168.43.200:8089/springmvc_mybatis/nyjs";
+        HttpURLConnection connection = null;
+
+        URL url = new URL(address);
+        try {
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(8000);
+            connection.setReadTimeout(8000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

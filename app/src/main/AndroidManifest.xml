@@ -26,6 +26,8 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".UserinfoActivity"></activity>
         <activity android:name=".MineActivity"></activity>
+        <activity android:name=".NyywActivity"></activity>
+        <activity android:name=".NewsDetail"></activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:noHistory="true"

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ public class MineActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_mine);
         Topbar topbar = (Topbar) findViewById(R.id.topbar);
+        View user = (View) findViewById(R.id.userinfo);
         topbar.setRightButtonVisibility(false);
         topbar.setOnLeftAndRightClickListener(new Topbar.OnLeftAndRightClickListener() {
             @Override
@@ -31,6 +34,14 @@ public class MineActivity extends Activity {
             @Override
             public void OnRightButtonClick() {
 //右边按钮实现的功能逻辑\
+            }
+        });
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent intent = new Intent(MineActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

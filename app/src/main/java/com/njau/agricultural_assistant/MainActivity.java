@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     private SliderLayout mDemoSlider;
+    private Intent intent;
     //定义图标数组
     private int[] imageRes = {
             R.mipmap.ic_launcher,
@@ -118,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
                         break;
                     case 4:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        intent = new Intent(MainActivity.this, NyywActivity.class);
+                        startActivity(intent);
                         break;
                     case 5:
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 8:
                         finish();
-                        Intent intent = new Intent(MainActivity.this,MineActivity.class);
+                        intent = new Intent(MainActivity.this, MineActivity.class);
                         startActivity(intent);
                         break;
                 }

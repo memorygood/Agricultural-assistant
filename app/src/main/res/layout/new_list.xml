@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.njau.agricultural_assistant.PullToRefreshListView
+        android:id="@+id/frame_listview_news"
+        style="@style/widget_listview" />
+
+</android.support.constraint.ConstraintLayout>
