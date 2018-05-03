@@ -2,6 +2,8 @@ package com.njau.agricultural_assistant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.njau.agricultural_assistant.utils.UrlContancs;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -30,6 +34,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by jy on 2018/3/19.
@@ -76,54 +82,78 @@ public class LoginActivity extends AppCompatActivity{
                     tencentlogin();
                     break;
                 case R.id.btn_login:
-                    login();
-                    break;
+                    String username = userName.getText().toString().trim();
+                    String passwd = password.getText().toString().trim();
+                    if (username.equals("")) {
+                        Toast.makeText(LoginActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
+                    } else if (passwd.equals("")) {
+                        Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        new Thread(loginThread).start();
+                        break;
+                    }
             }
         }
-    }
-    private void enterRegister(){
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
-    }
-    private void login(){
-        String username = userName.getText().toString().trim();
-        String passwd = password.getText().toString().trim();
-        if(username.equals("")){
-            Toast.makeText(LoginActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
-        }else if(passwd.equals("")){
-            Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-        }else{
-            try {
-               URL url = new URL("http://192.168.43.200:8086/nyzs/Login.action?username=" + username + "&passwd=" + passwd);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("POST");
-                InputStream in = connection.getInputStream();
-                //下面对获取到的输入流进行读取
-                reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null){
-                    response.append(line);
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+        private void enterRegister() {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+
+        public Thread loginThread = new Thread() {
+            public void run() {
+                String username = userName.getText().toString().trim();
+                String passwd = password.getText().toString().trim();
+                try {
+                    URL url = new URL(UrlContancs.loginurl + "?username="+ username+ "&pwd=" + passwd);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    InputStream in = connection.getInputStream();
+                    //下面对获取到的输入流进行读取
+                    reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    String userinfo;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    String jsonString = response.toString();
+                    Gson gson = new Gson();
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map = gson.fromJson(jsonString, map.getClass());
+                    Map<String, Object> user = new HashMap<String, Object>();
+                    user = (Map<String, Object>) map.get("result");
+                    String password = String.valueOf(user.get("c_password"));
+                    if(passwd.equals(password)){
+                        Message msg = Message.obtain();
+                        msg.what = 0;
+                        successHandler.sendMessage(msg);
+                    }else{
+                        Message msg = Message.obtain();
+                        msg.what= 1;
+                        successHandler.sendMessage(msg);
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (connection != null) {
+                        connection.disconnect();
                     }
                 }
-                if (connection != null) {
-                    connection.disconnect();
-                }
             }
-        }
+        };
     }
     private void tencentlogin() {
         mIUiListener = new BaseUiListener();
@@ -138,8 +168,7 @@ public class LoginActivity extends AppCompatActivity{
         @Override
         public void onComplete(Object response) {
             Log.e(TAG, "response:" + response);
-            JSONObject obj = (JSONObject) response;
-            try {
+            JSONObject obj = (JSONObject) response;            try {
                 String openID = obj.getString("openid");
                 String accessToken = obj.getString("access_token");
                 String expires = obj.getString("expires_in");
@@ -151,9 +180,12 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onComplete(Object response) {
                         Log.e(TAG,"登录成功"+response.toString());
-                        finish();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+//                        finish();
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        startActivity(intent);
+                        Message msg = Message.obtain();
+                        msg.what = 0;
+                        successHandler.sendMessage(msg);
                     }
                     @Override
                     public void onError(UiError uiError) {
@@ -195,5 +227,18 @@ public class LoginActivity extends AppCompatActivity{
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private Handler successHandler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch(msg.what){
+                case 0:
+                    finish();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        };
+    };
 }
 

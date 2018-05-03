@@ -81,8 +81,7 @@ public class NewsListViewAdapter extends BaseAdapter {
 			listItemView = new ListItemView();
 			listItemView.title = (TextView) convertView
 					.findViewById(R.id.news_listitem_title);
-			listItemView.author = (TextView) convertView
-					.findViewById(R.id.news_listitem_author);
+
 			listItemView.count = (TextView) convertView
 					.findViewById(R.id.news_listitem_commentCount);
 			listItemView.date = (TextView) convertView

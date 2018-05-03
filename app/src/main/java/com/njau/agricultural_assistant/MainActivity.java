@@ -1,5 +1,6 @@
 package com.njau.agricultural_assistant;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -16,6 +19,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.jauker.widget.BadgeView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         urlMaps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
         urlMaps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
         urlMaps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-
         for(String name : urlMaps.keySet()){
             TextSliderView textSliderView = new TextSliderView(this);
             textSliderView
@@ -110,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
                         break;
                     case 1:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        intent = new Intent(MainActivity.this, NyywActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
@@ -119,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
                         break;
                     case 4:
-                        intent = new Intent(MainActivity.this, NyywActivity.class);
-                        startActivity(intent);
+
                         break;
                     case 5:
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();

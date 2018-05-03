@@ -32,19 +32,19 @@ public class NewsDetail extends Activity {
 	 */
 	private void initData() {
 		// 接收position位置(被点击的列表项位置news_id)
-		Intent intent = getIntent();
-		intent.getExtras();
-		Bundle data = intent.getExtras();
-		int position = data.getInt("news_id");
-		Log.i("接收到的数据", String.valueOf(position));
-
-		// 依position读取对应的新闻
-		News news = NyywActivity.newsDataList.get(position-1);
-		news_detail_title.setText(news.getTitle());
-		news_detail_author.setText(news.getAuthor());
-		news_detail_date.setText(news.getPubDate());
-		news_detail_commentcount.setText(String.valueOf(news.getCommentCount()));
-		news_detail_body.setText(news.getBody());
+//		Intent intent = getIntent();
+//		intent.getExtras();
+//		Bundle data = intent.getExtras();
+//		int position = data.getInt("news_id");
+//		Log.i("接收到的数据", String.valueOf(position));
+//
+//		// 依position读取对应的新闻
+//		News news = NyywActivity.newsDataList.get(position-1);
+//		news_detail_title.setText(news.getTitle());
+//		news_detail_author.setText(news.getAuthor());
+//		news_detail_date.setText(news.getPubDate());
+//		news_detail_commentcount.setText(String.valueOf(news.getCommentCount()));
+//		news_detail_body.setText(news.getBody());
 
 	}
 
@@ -64,17 +64,17 @@ public class NewsDetail extends Activity {
 	 */
 	private void testNewsData() {
 		// 接收position位置(被点击的列表项位置news_id)
-		Intent intent = getIntent();
-		intent.getExtras();
-		Bundle data = intent.getExtras();
-		int position = data.getInt("news_id");
-		Log.i("测试接点击列表项位置", String.valueOf(position));
-		News news = NyywActivity.newsDataList.get(position-1);
-		Log.w("标题", news.getTitle());
-		Log.w("作者", news.getAuthor());
-		Log.w("发表日期", news.getPubDate());
-		Log.w("评论数", String.valueOf(news.getCommentCount()));
-		Log.w("内容", news.getBody());
-
+//		Intent intent = getIntent();
+//		intent.getExtras();
+//		Bundle data = intent.getExtras();
+//		int position = data.getInt("news_id");
+//		Log.i("测试接点击列表项位置", String.valueOf(position));
+//		News news = NyywActivity.newsDataList.get(position-1);
+//		Log.w("标题", news.getTitle());
+//		Log.w("作者", news.getAuthor());
+//		Log.w("发表日期", news.getPubDate());
+//		Log.w("评论数", String.valueOf(news.getCommentCount()));
+//		Log.w("内容", news.getBody());
+//
 	}
 }
