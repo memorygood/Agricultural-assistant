@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     //定义图标下方的名称数组
     private String[] name = {
-            "当前农事",
+            "农业政策",
             "农业要闻",
             "农业论坛",
             "市场资讯",

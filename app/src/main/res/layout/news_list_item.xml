@@ -43,12 +43,12 @@
         android:layout_marginTop="8dip">
 
         <TextView
+            android:id="@+id/news_listitem_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
             android:textSize="@dimen/text_size_10"
-            android:textColor="@color/listitem_gray"
-            android:text="发布于"/>
+            android:textColor="@color/listitem_gray"/>
 
         <TextView android:id="@+id/news_listitem_date"
             android:layout_width="wrap_content"

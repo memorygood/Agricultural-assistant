@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <com.njau.agricultural_assistant.Topbar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/list_focus_color"
+            app:leftBackground="@drawable/left_button_selector"
+            app:rightBackground="@drawable/right_button_selector"
+            app:titleText=""
+            app:titleTextColor="#FFF"
+            app:titleTextSize="6sp" />
+        <ListView
+            android:id="@+id/td_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
