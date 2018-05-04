@@ -63,8 +63,6 @@ public class NyywActivity extends Activity {
 //右边按钮实现的功能逻辑\
             }
         });
-        dialog.setTitle("提示");
-        dialog.setMessage("loading...");
         listView = findViewById(R.id.td_listview);
         new Thread(new NyywActivity.NyywListThread()).start();
     }
@@ -72,7 +70,7 @@ public class NyywActivity extends Activity {
 
         public void run() {
             try {
-                URL url = new URL("http://192.168.43.200:8089/springmvc_mybatis/nyyw");
+                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyyw");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(8000); // 设置超时时间
                 connection.setReadTimeout(8000);

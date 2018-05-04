@@ -39,7 +39,7 @@
             tools:layout_editor_absoluteY="59dp">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/mine_loginname"
                 android:layout_width="150dp"
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
@@ -62,9 +62,9 @@
                 android:id="@+id/rightButton1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignTop="@+id/textView"
-                android:layout_marginStart="40dp"
-                android:layout_toEndOf="@+id/textView"
+                android:layout_alignTop="@+id/mine_loginname"
+                android:layout_marginStart="43dp"
+                android:layout_toEndOf="@+id/mine_loginname"
                 android:background="@drawable/right_button_selector1" />
         </RelativeLayout>
 

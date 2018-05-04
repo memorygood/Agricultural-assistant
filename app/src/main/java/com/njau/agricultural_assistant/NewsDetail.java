@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -45,33 +46,24 @@ public class NewsDetail extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.news_detail);
+		initView();
 		Intent intent = getIntent();
 		intent.getExtras();
 		Bundle data = intent.getExtras();
-		cid=data.getString("sex");
+		cid=data.getString("cid");
+		new Thread(new NewsDetail.NyywxxThread()).start();
 		Log.i("接收到的数据", String.valueOf(cid));
+		ImageView img = findViewById(R.id.news_detail_home);
+		img.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+				Intent intent = new Intent(NewsDetail.this, NyywActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 
-	/**
-	 * 读取新闻数据并显示在新闻详细界面中
-	 */
-	private void initData() {
-		// 接收position位置(被点击的列表项位置news_id)
-//		Intent intent = getIntent();
-//		intent.getExtras();
-//		Bundle data = intent.getExtras();
-//		int position = data.getInt("news_id");
-//		Log.i("接收到的数据", String.valueOf(position));
-//
-//		// 依position读取对应的新闻
-//		News news = NyywActivity.newsDataList.get(position-1);
-//		news_detail_title.setText(news.getTitle());
-//		news_detail_author.setText(news.getAuthor());
-//		news_detail_date.setText(news.getPubDate());
-//		news_detail_commentcount.setText(String.valueOf(news.getCommentCount()));
-//		news_detail_body.setText(news.getBody());
-
-	}
 
 	/**
 	 * 初始化新闻详细界面
@@ -84,11 +76,11 @@ public class NewsDetail extends Activity {
 		news_detail_body = (TextView) findViewById(R.id.news_detail_body);
 	}
 
-	public class NyywListThread implements Runnable {
+	public class NyywxxThread implements Runnable {
 
 		public void run() {
 			try {
-				URL url = new URL("192.168.43.200:8080" + "?cid="+cid);
+				URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyywxx?cid="+cid);
 				connection = (HttpURLConnection) url.openConnection();
 				connection.setRequestMethod("GET");
 				InputStream in = connection.getInputStream();
@@ -104,7 +96,6 @@ public class NewsDetail extends Activity {
 				Gson gson = new Gson();
 				Map<String, Object> map = new HashMap<String, Object>();
 				map = gson.fromJson(jsonString, map.getClass());
-				nyywxx = new HashMap<String, Object>();
 				nyywxx = (Map<String, Object>) map.get("result");
 			} catch (MalformedURLException e) {
 				e.printStackTrace();

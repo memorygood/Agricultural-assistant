@@ -41,7 +41,7 @@ import java.util.Map;
  * Created by jy on 2018/3/19.
  */
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
     private static final String APPID = "1106790452";
     private static final int REQUEST_CODE_TO_REGISTER = 0x001;
     private IUiListener mListener;
@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity{
     EditText userName,password;
     BufferedReader reader;
     HttpURLConnection  connection;
+    public static String userid = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +130,7 @@ public class LoginActivity extends AppCompatActivity{
                         Message msg = Message.obtain();
                         msg.what = 0;
                         successHandler.sendMessage(msg);
+                        userid = user.get("c_id").toString();
                     }else{
                         Message msg = Message.obtain();
                         msg.what= 1;
