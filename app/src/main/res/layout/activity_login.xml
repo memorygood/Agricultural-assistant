@@ -11,7 +11,7 @@
         android:id="@+id/activity_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/ic_launcher"
+        android:background="@mipmap/loginbackground"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="47dp"
         tools:ignore="MissingConstraints">
@@ -26,7 +26,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="146dp"
             android:text="农业助手"
-            android:textColor="#848383"
+            android:textColor="#1adc31"
             android:textSize="40sp"
             android:typeface="monospace" />
 
@@ -69,6 +69,7 @@
                 android:hint="  用户名"
                 android:textColorHint="@color/colorCursor"
                 android:textCursorDrawable="@drawable/color_cursor"
+                android:textColor="@color/colorCursor"
                 android:textSize="15sp" />
 
             <ImageView
@@ -124,6 +125,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/colorCursor"
                 android:textCursorDrawable="@drawable/color_cursor"
+                android:textColor="@color/colorCursor"
                 android:textSize="15sp" />
 
             <ImageView
@@ -190,6 +192,7 @@ s
             android:layout_marginTop="10dp"
             android:text="账号注册"
             android:clickable="true"
+            android:textColor="@color/colorCursor"
             android:onClick="onClick"
             android:textSize="16dp"/>
 
@@ -202,6 +205,7 @@ s
             android:layout_alignEnd="@+id/btn_loginbyqq"
             android:text="忘记密码"
             android:onClick="onClick"
+            android:textColor="@color/colorCursor"
             android:clickable="true"
             android:textSize="16dp"/>
     </RelativeLayout>
