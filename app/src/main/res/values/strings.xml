@@ -5,12 +5,4 @@
     <string name="fa_unlock">&#xf09c;</string>
     <string name="fa_unlock_alt">&#xf13e;</string>
     <string name="fa_envelope">&#xf0e0;</string>
-
-    <string name="pull_to_refresh_pull_label">下拉刷新</string>
-    <string name="pull_to_refresh_release_label">松开刷新</string>
-    <string name="pull_to_refresh_refreshing_label">加载中...</string>
-    <string name="pull_to_refresh_tap_label">下拉刷新</string>
-    <string name="pull_to_refresh_update">最近更新：</string>
-
-
 </resources>

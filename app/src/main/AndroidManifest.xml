@@ -27,6 +27,10 @@
         <activity android:name=".UserinfoActivity"></activity>
         <activity android:name=".MineActivity"></activity>
         <activity android:name=".NyywActivity"></activity>
+        <activity android:name=".NyzcActivity"></activity>
+        <activity android:name=".NyjsActivity"></activity>
+        <activity android:name=".SczxActivity"></activity>
+        <activity android:name=".YhscActivity"></activity>
         <activity android:name=".NewsDetail"></activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"

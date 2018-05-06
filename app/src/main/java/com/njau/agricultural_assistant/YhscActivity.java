@@ -29,10 +29,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class NyywActivity extends Activity {
+import static com.njau.agricultural_assistant.LoginActivity.userid;
+
+/**
+ * Created by admin on 2018/5/6.
+ */
+
+public class YhscActivity extends Activity {
     Handler handler = new Handler();
     public ListView listView;
-    HttpURLConnection  connection;
+    HttpURLConnection connection;
     BufferedReader reader;
     List<Map<String, Object>> list1;
     // 创建等待框
@@ -54,7 +60,7 @@ public class NyywActivity extends Activity {
             public void OnLeftButtonClick() {
                 //左边按钮实现的功能逻辑
                 finish();
-                Intent intent = new Intent(NyywActivity.this, MainActivity.class);
+                Intent intent = new Intent(YhscActivity.this, MainActivity.class);
                 startActivity(intent);
             }
 
@@ -64,13 +70,13 @@ public class NyywActivity extends Activity {
             }
         });
         listView = findViewById(R.id.td_listview);
-        new Thread(new NyywActivity.NyywListThread()).start();
+        new Thread(new YhscActivity.YhscListThread()).start();
     }
-    public class NyywListThread implements Runnable {
+    public class YhscListThread implements Runnable {
 
         public void run() {
             try {
-                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyywlist");
+                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/scxxlist?userid="+userid);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(8000); // 设置超时时间
                 connection.setReadTimeout(8000);
@@ -108,7 +114,7 @@ public class NyywActivity extends Activity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    SimpleAdapter simpleAdapter = new SimpleAdapter(NyywActivity.this,list1,
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(YhscActivity.this,list1,
                             R.layout.news_list_item,
                             new String[]{"c_title","c_fbsj"},
                             new int[]{R.id.news_listitem_title,R.id.news_listitem_datetime});
@@ -117,16 +123,16 @@ public class NyywActivity extends Activity {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Map<String,Object> yw = list1.get(position);
-                            String cid = yw.get("c_id").toString();
+                            Map<String,Object> xx = list1.get(position);
+                            String cid = xx.get("c_id").toString();
+                            String xxlx = xx.get("c_xxlx").toString();
                             Intent intent=new Intent();
-                            intent.setClass(NyywActivity.this,NewsDetail.class);
+                            intent.setClass(YhscActivity.this,NewsDetail.class);
                             //利用bundle来存取数据
                             Bundle bundle=new Bundle();
                             bundle.putString("cid",cid);
-                            bundle.putString("path","nyywxx");
-                            bundle.putString("activity","NyywActivity");
-                            bundle.putString("xxlx","nyywxx");
+                            bundle.putString("path",xxlx);
+                            bundle.putString("activity","YhscActivity");
                             //再把bundle中的数据传给intent，以传输过去
                             intent.putExtras(bundle);
                             startActivityForResult(intent,0);
@@ -136,21 +142,21 @@ public class NyywActivity extends Activity {
             });
         }
     };
-    public  List<Map<String, Object>> getListMaps(String key, String jsonString){
+    public  List<Map<String, Object>> getListMaps(String key, String jsonString) {
         List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(key);
-            for(int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                 Map<String, Object> map = new HashMap<String, Object>();
                 // 通过org.json中的迭代器来取Map中的值。
                 Iterator<String> iterator = jsonObject2.keys();
-                while(iterator.hasNext()) {
+                while (iterator.hasNext()) {
                     String jsonKey = iterator.next();
                     Object jsonValue = jsonObject2.get(jsonKey);
                     //JSON的值是可以为空的，所以我们也需要对JSON的空值可能性进行判断。
-                    if(jsonValue == null){
+                    if (jsonValue == null) {
                         jsonValue = "";
                     }
                     map.put(jsonKey, jsonValue);

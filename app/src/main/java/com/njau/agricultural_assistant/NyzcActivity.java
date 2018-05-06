@@ -29,10 +29,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class NyywActivity extends Activity {
+/**
+ * Created by admin on 2018/5/5.
+ */
+
+public class NyzcActivity extends Activity {
     Handler handler = new Handler();
     public ListView listView;
-    HttpURLConnection  connection;
+    HttpURLConnection connection;
     BufferedReader reader;
     List<Map<String, Object>> list1;
     // 创建等待框
@@ -54,7 +58,7 @@ public class NyywActivity extends Activity {
             public void OnLeftButtonClick() {
                 //左边按钮实现的功能逻辑
                 finish();
-                Intent intent = new Intent(NyywActivity.this, MainActivity.class);
+                Intent intent = new Intent(NyzcActivity.this, MainActivity.class);
                 startActivity(intent);
             }
 
@@ -64,13 +68,13 @@ public class NyywActivity extends Activity {
             }
         });
         listView = findViewById(R.id.td_listview);
-        new Thread(new NyywActivity.NyywListThread()).start();
+        new Thread(new NyzcActivity.NyzcListThread()).start();
     }
-    public class NyywListThread implements Runnable {
+    public class NyzcListThread implements Runnable {
 
         public void run() {
             try {
-                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyywlist");
+                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyzclist");
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(8000); // 设置超时时间
                 connection.setReadTimeout(8000);
@@ -108,7 +112,7 @@ public class NyywActivity extends Activity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    SimpleAdapter simpleAdapter = new SimpleAdapter(NyywActivity.this,list1,
+                    SimpleAdapter simpleAdapter = new SimpleAdapter(NyzcActivity.this,list1,
                             R.layout.news_list_item,
                             new String[]{"c_title","c_fbsj"},
                             new int[]{R.id.news_listitem_title,R.id.news_listitem_datetime});
@@ -120,13 +124,13 @@ public class NyywActivity extends Activity {
                             Map<String,Object> yw = list1.get(position);
                             String cid = yw.get("c_id").toString();
                             Intent intent=new Intent();
-                            intent.setClass(NyywActivity.this,NewsDetail.class);
+                            intent.setClass(NyzcActivity.this,NewsDetail.class);
                             //利用bundle来存取数据
                             Bundle bundle=new Bundle();
                             bundle.putString("cid",cid);
-                            bundle.putString("path","nyywxx");
-                            bundle.putString("activity","NyywActivity");
-                            bundle.putString("xxlx","nyywxx");
+                            bundle.putString("path","nyzcxx");
+                            bundle.putString("xxlx","nyzcxx");
+                            bundle.putString("activity","NyzcActivity");
                             //再把bundle中的数据传给intent，以传输过去
                             intent.putExtras(bundle);
                             startActivityForResult(intent,0);

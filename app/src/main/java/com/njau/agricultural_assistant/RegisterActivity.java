@@ -12,12 +12,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lenovo on 2018/3/19.
@@ -29,6 +36,9 @@ public class RegisterActivity extends Activity {
     TextView tv_checkpwd;
     TextView tv_email;
     TextView tv_phone;
+    BufferedReader reader;
+    Handler handler = new Handler();
+    private Intent intent;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //加载启动图片
@@ -66,16 +76,17 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                Toast.makeText(RegisterActivity.this,"111",Toast.LENGTH_LONG).show();
-                new Thread(registThread).start();
+                new Thread(new RegisterActivity.RegisterThread()).start();
             }
         });
     }
 
     //提交注册信息
-    public Thread  registThread = new Thread(){
-            public void run() {
-                String address = "http://192.168.43.64:8080/springmvc_mybatis/nyjs";
+    public class RegisterThread implements Runnable{
+        String code;
+        public void run() {
+                String address = "http://192.168.43.64:8080/springmvc_mybatis/registe?username="+tv_usrname.getText()+
+                        "&pwd="+tv_pwd.getText()+"&phone="+tv_phone.getText()+"&email="+tv_email.getText();
                 String message = "";
                 HttpURLConnection connection = null;
                 try {
@@ -84,32 +95,55 @@ public class RegisterActivity extends Activity {
                     connection.setRequestMethod("GET");
                     connection.setConnectTimeout(5 * 1000);
                     connection.connect();
-                    InputStream inputStream = connection.getInputStream();
-                    byte[] data = new byte[1024];
-                    StringBuffer sb = new StringBuffer();
-                    int length = 0;
-                    while ((length = inputStream.read(data)) != -1) {
-                        String s = new String(data, Charset.forName("utf-8"));
-                        sb.append(s);
+                    InputStream in = connection.getInputStream();
+                    //下面对获取到的输入流进行读取
+                    reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    String userinfo;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
                     }
-                    message = sb.toString();
-                    Message msg = Message.obtain();
-                    msg.what = 0;
-                    postHandler.sendMessage(msg);
-                    inputStream.close();
-                } catch (Exception e) {
+                    String json = response.toString();
+                    Gson gson = new Gson();
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map = gson.fromJson(json, map.getClass());
+                    code = (String) map.get("code");
+                } catch (MalformedURLException e) {
                     e.printStackTrace();
-                }finally {
-                    connection.disconnect();
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (connection != null) {
+                        connection.disconnect();
+                    }
                 }
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(code.equals("200")){
+                        Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_LONG).show();
+                        finish();
+                        intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }else if(code.equals("500")){
+                        Toast.makeText(RegisterActivity.this,"注册失败",Toast.LENGTH_LONG).show();
+                        finish();
+                        intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
             };
     };
 
-    private Handler postHandler = new Handler(){
-        public void handleMessage(android.os.Message msg) {
-            if(msg.what==0){
-                Toast.makeText(RegisterActivity.this,"222333",Toast.LENGTH_LONG).show();
-            }
-        };
-    };
 }

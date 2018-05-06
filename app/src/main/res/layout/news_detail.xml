@@ -1,135 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
-
-    <FrameLayout
-        android:id="@+id/news_detail_header"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="47dp"
-        android:background="@drawable/head_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="2dip"
-        android:paddingRight="2dip">
-
-        <TextView
-            android:id="@+id/news_detail_head_title"
-            style="@style/detail_head_title"
-            android:layout_gravity="center"
-            android:text="" />
-
-        <ImageView
-            android:id="@+id/news_detail_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center"
-            android:background="@drawable/head_refresh"
-            android:clickable="true"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/news_detail_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="left|center"
-            android:background="@drawable/head_home"
-            android:clickable="true" />
-    </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/news_detail_viewswitcher"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
         android:orientation="vertical" >
+        <com.njau.agricultural_assistant.Topbar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/list_focus_color"
+            app:leftBackground="@drawable/left_button_selector"
+            app:rightBackground="@drawable/right_button_selector"
+            app:titleText=""
+            app:titleTextColor="#FFF"
+            app:titleTextSize="6sp" />
+        <!--<FrameLayout-->
+            <!--android:id="@+id/news_detail_header"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="47dp"-->
+            <!--android:background="@drawable/head_bg"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:paddingLeft="2dip"-->
+            <!--android:paddingRight="2dip">-->
 
-        <ScrollView
-            android:id="@+id/news_detail_scrollview"
+            <!--<TextView-->
+                <!--android:id="@+id/news_detail_head_title"-->
+                <!--style="@style/detail_head_title"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:text="" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/news_detail_refresh"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right|center"-->
+                <!--android:background="@drawable/head_refresh"-->
+                <!--android:clickable="true"-->
+                <!--android:visibility="gone" />-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/news_detail_home"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_gravity="left|center"-->
+                <!--android:background="@drawable/head_home"-->
+                <!--android:clickable="true" />-->
+        <!--</FrameLayout>-->
+
+        <LinearLayout
+            android:id="@+id/news_detail_viewswitcher"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fadingEdge="none"
-            android:scrollbars="vertical" >
+            android:orientation="vertical" >
 
-            <LinearLayout
+            <ScrollView
+                android:id="@+id/news_detail_scrollview"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/news_detail_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6.0dip"
-                    android:layout_marginRight="6.0dip"
-                    android:layout_marginTop="10.0dip"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18"
-                    android:textStyle="bold" />
+                android:layout_weight="1"
+                android:fadingEdge="none"
+                android:scrollbars="vertical" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6.0dip"
-                    android:layout_marginRight="6.0dip"
-                    android:layout_marginTop="6.0dip"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/news_detail_author"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/author_text"
-                        android:textSize="@dimen/text_size_13" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/news_detail_title"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6.0dip"
-                        android:text="发表时间"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/text_size_12" />
+                        android:layout_marginRight="6.0dip"
+                        android:layout_marginTop="10.0dip"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_18"
+                        android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/news_detail_date"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6.0dip"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/text_size_12" />
+                        android:layout_marginRight="6.0dip"
+                        android:layout_marginTop="6.0dip"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6.0dp"
+                            android:text="发表时间"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/text_size_12" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10.0dip"
-                        android:src="@mipmap/widget_comment_count_icon" />
+                        <TextView
+                            android:id="@+id/news_detail_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6.0dp"
+                            android:textColor="@color/author_text"
+                            android:textSize="@dimen/text_size_12" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="来源:"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/text_size_12" />
+                        <TextView
+                            android:id="@+id/news_detail_ly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/author_text"
+                            android:textSize="@dimen/text_size_13" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="10.0dp"
+                            android:src="@mipmap/widget_comment_count_icon" />
 
+                        <TextView
+                            android:id="@+id/news_detail_commentcount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3.0dp"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/text_size_12" />
+                    </LinearLayout>
+                    <View style="@style/detail_cut_line" />
                     <TextView
-                        android:id="@+id/news_detail_commentcount"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/news_detail_body"
+                        android:layout_width="330dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3.0dip"
-                        android:textColor="@color/gray"
-                        android:textSize="@dimen/text_size_12" />
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:textSize="20sp"
+                        android:textColor="@color/black" />
+
+                    <View style="@style/detail_cut_line" />
                 </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/news_detail_body"
-                    android:layout_width="330dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@color/white"
-                    android:textSize="20sp"
-                    android:textColor="@color/black" />
-
-                <View style="@style/detail_cut_line" />
-            </LinearLayout>
-        </ScrollView>
     </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

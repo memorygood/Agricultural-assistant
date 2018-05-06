@@ -1,6 +1,7 @@
 package com.njau.agricultural_assistant;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +24,7 @@ import com.jauker.widget.BadgeView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     private SliderLayout mDemoSlider;
     private Intent intent;
     //定义图标数组
@@ -110,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this,name[position],Toast.LENGTH_LONG).show();
                 switch (position){
                     case 0:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        intent = new Intent(MainActivity.this, NyzcActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
                         intent = new Intent(MainActivity.this, NyywActivity.class);
@@ -120,19 +122,21 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
                         break;
                     case 3:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        intent = new Intent(MainActivity.this, SczxActivity.class);
+                        startActivity(intent);
                         break;
                     case 4:
-
+                        intent = new Intent(MainActivity.this, NyjsActivity.class);
+                        startActivity(intent);
                         break;
                     case 5:
                         Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
                         break;
                     case 6:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
                         break;
                     case 7:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
+                        intent = new Intent(MainActivity.this, YhscActivity.class);
+                        startActivity(intent);
                         break;
                     case 8:
                         finish();

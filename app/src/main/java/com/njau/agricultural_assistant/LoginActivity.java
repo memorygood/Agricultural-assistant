@@ -1,5 +1,6 @@
 package com.njau.agricultural_assistant;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText userName,password;
     BufferedReader reader;
     HttpURLConnection  connection;
+    // 创建等待框
+    private ProgressDialog dialog;
     public static String userid = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,12 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (passwd.equals("")) {
                         Toast.makeText(LoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
                     } else {
-
+                        dialog = new ProgressDialog(LoginActivity.this);
+                        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
+                        dialog.setTitle("提示");
+                        dialog.setMessage("加载中...");
+                        dialog.setCancelable(false);
+                        dialog.show();
                         new Thread(loginThread).start();
                         break;
                     }
@@ -235,6 +243,7 @@ public class LoginActivity extends AppCompatActivity {
             super.handleMessage(msg);
             switch(msg.what){
                 case 0:
+                    dialog.dismiss();
                     finish();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
