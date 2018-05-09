@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_register"
+        android:layout_width="382dp"
+        android:layout_height="match_parent"
+        android:background="@color/logoScreenBackground"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <com.njau.agricultural_assistant.Topbar
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/list_focus_color"
+            app:leftBackground="@drawable/left_button_selector"
+            app:rightBackground="@drawable/right_button_selector"
+            app:titleText="修改密码"
+            app:titleTextColor="#FFF"
+            app:titleTextSize="6sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_userPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topbar"
+            android:background="@drawable/rectangle_edittext"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="122dp">
+
+            <TextView
+                android:id="@+id/iv_userIconPwd"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:text="@string/fa_unlock" />
+
+            <View
+                android:id="@+id/viewPwd"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_userIconPwd"
+                android:background="@color/colorCursor" />
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/viewPwd"
+                android:background="@null"
+                android:drawablePadding="5dp"
+                android:ems="19"
+                android:hint=" 原密码"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorCursor"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_usercheckPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_userPassword"
+            android:background="@drawable/rectangle_edittext"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="122dp">
+
+            <TextView
+                android:id="@+id/iv_checkIconPwd"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:text="@string/fa_unlock_alt" />
+
+            <View
+                android:id="@+id/viewcheckPwd"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_checkIconPwd"
+                android:background="@color/colorCursor" />
+
+            <EditText
+                android:id="@+id/et_checkpassword"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/viewcheckPwd"
+                android:background="@null"
+                android:drawablePadding="5dp"
+                android:ems="19"
+                android:hint=" 修改后密码"
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorCursor"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+
+
+        <Button
+            android:id="@+id/btn_tj"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:background="@drawable/round_corner_bg"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="提交"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

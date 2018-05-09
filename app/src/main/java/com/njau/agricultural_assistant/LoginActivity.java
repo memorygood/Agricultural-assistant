@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText userName,password;
     BufferedReader reader;
     HttpURLConnection  connection;
+    String username;
+    String xb;
     // 创建等待框
     private ProgressDialog dialog;
     public static String userid = null;
@@ -178,7 +180,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onComplete(Object response) {
             Log.e(TAG, "response:" + response);
-            JSONObject obj = (JSONObject) response;            try {
+            JSONObject obj = (JSONObject) response;
+            try {
                 String openID = obj.getString("openid");
                 String accessToken = obj.getString("access_token");
                 String expires = obj.getString("expires_in");
@@ -186,16 +189,53 @@ public class LoginActivity extends AppCompatActivity {
                 mTencent.setAccessToken(accessToken,expires);
                 QQToken qqToken = mTencent.getQQToken();
                 mUserInfo = new UserInfo(getApplicationContext(),qqToken);
+
                 mUserInfo.getUserInfo(new IUiListener() {
                     @Override
                     public void onComplete(Object response) {
                         Log.e(TAG,"登录成功"+response.toString());
+                        QQToken qqToken = mTencent.getQQToken();
+                        UserInfo info = new UserInfo(getApplicationContext(), qqToken);
+
+                        //    info.getUserInfo(new BaseUIListener(this,"get_simple_userinfo"));
+                        info.getUserInfo(new IUiListener() {
+                            @Override
+                            public void onComplete(Object o) {
+                                //用户信息获取到了
+
+                                try {
+                                    username = ((JSONObject) o).getString("nickname");
+                                    if(((JSONObject) o).getString("gender").equals("男")){
+                                        xb="1";
+                                    }else xb="2";
+                                    Toast.makeText(getApplicationContext(), ((JSONObject) o).getString("nickname")+((JSONObject) o).getString("gender"), Toast.LENGTH_SHORT).show();
+                                    Log.v("UserInfo",o.toString());
+                                    Intent intent1 = new Intent(LoginActivity.this,MainActivity.class);
+                                    startActivity(intent1);
+                                    finish();
+                                    new Thread(new LoginActivity.RegisterThread()).start();
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onError(UiError uiError) {
+                                Log.v("UserInfo","onError");
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                Log.v("UserInfo","onCancel");
+                            }
+                        });
 //                        finish();
 //                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                        startActivity(intent);
-                        Message msg = Message.obtain();
-                        msg.what = 0;
-                        successHandler.sendMessage(msg);
+//                        Message msg = Message.obtain();
+//                        msg.what = 0;
+//                        successHandler.sendMessage(msg);
                     }
                     @Override
                     public void onError(UiError uiError) {
@@ -237,7 +277,52 @@ public class LoginActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+    //提交注册信息
+    public class RegisterThread implements Runnable {
+        String code;
+        public void run() {
+            String address = "http://192.168.43.64:8080/springmvc_mybatis/registe?username=" + java.net.URLEncoder.encode(username) +
+                    "&xb=" + java.net.URLEncoder.encode(xb);
+            try {
+                URL url = new URL(address);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(8000); // 设置超时时间
+                connection.setReadTimeout(8000);
+                connection.setRequestProperty("Charset", "UTF-8");
+                connection.setRequestMethod("GET");
+                InputStream in = connection.getInputStream();
+                //下面对获取到的输入流进行读取
+                reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                String json = response.toString();
+                Gson gson = new Gson();
+                Map<String, Object> map = new HashMap<String, Object>();
+                map = gson.fromJson(json, map.getClass());
+                code = (String) map.get("code");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            }
+        }
+    }
     private Handler successHandler = new Handler(){
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
@@ -247,6 +332,10 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    break;
+                case 1:
+                    dialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                     break;
             }
         };

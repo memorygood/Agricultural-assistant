@@ -29,25 +29,21 @@ public class MainActivity extends Activity {
     private Intent intent;
     //定义图标数组
     private int[] imageRes = {
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher};
+            R.mipmap.sb,
+            R.mipmap.rl,
+            R.mipmap.sczx,
+            R.mipmap.xwj,
+            R.mipmap.nywk,
+            R.mipmap.sc,
+            R.mipmap.grxx};
 
     //定义图标下方的名称数组
     private String[] name = {
             "农业政策",
             "农业要闻",
-            "农业论坛",
             "市场资讯",
             "农业科技",
             "农业微课",
-            "订阅",
             "收藏",
             "我的"
     };
@@ -58,16 +54,16 @@ public class MainActivity extends Activity {
 
 
         mDemoSlider = (SliderLayout)findViewById(R.id.slider);
-
-        HashMap<String,String> urlMaps = new HashMap<>();
-        urlMaps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        urlMaps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        urlMaps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
+        ImageView iv = (ImageView) findViewById(R.id.img_dqns);
+        HashMap<String,Object> urlMaps = new HashMap<>();
+        urlMaps.put("方诚温室", R.mipmap.guanggao1);
+        urlMaps.put("陕西非凡果行", R.mipmap.guanggao2);
+        urlMaps.put("第十七届全国农业交流会暨农化产品展览会", R.mipmap.guanggao3);
         for(String name : urlMaps.keySet()){
             TextSliderView textSliderView = new TextSliderView(this);
             textSliderView
                     .description(name)//描述
-                    .image(urlMaps.get(name))//image方法可以传入图片url、资源id、File
+                    .image((Integer) urlMaps.get(name))//image方法可以传入图片url、资源id、File
                     .setScaleType(BaseSliderView.ScaleType.Fit)//图片缩放类型
                     .setOnSliderClickListener(onSliderClickListener);//图片点击
             textSliderView.bundle(new Bundle());
@@ -119,26 +115,22 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                         break;
                     case 2:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
-                        break;
-                    case 3:
                         intent = new Intent(MainActivity.this, SczxActivity.class);
                         startActivity(intent);
                         break;
-                    case 4:
+                    case 3:
                         intent = new Intent(MainActivity.this, NyjsActivity.class);
                         startActivity(intent);
                         break;
+                    case 4:
+                        intent = new Intent(MainActivity.this, Video.class);
+                        startActivity(intent);
+                        break;
                     case 5:
-                        Toast.makeText(MainActivity.this,"111",Toast.LENGTH_LONG).show();
-                        break;
-                    case 6:
-                        break;
-                    case 7:
                         intent = new Intent(MainActivity.this, YhscActivity.class);
                         startActivity(intent);
                         break;
-                    case 8:
+                    case 6:
                         finish();
                         intent = new Intent(MainActivity.this, MineActivity.class);
                         startActivity(intent);

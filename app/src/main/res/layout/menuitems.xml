@@ -38,6 +38,30 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:src="@mipmap/ic_launcher"/>
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--&gt;-->
+
+                <!--<ImageView-->
+                    <!--android:contentDescription="wait scan image"-->
+                    <!--android:id="@+id/img_dqns"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@mipmap/ic_launcher" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_alignRight="@+id/img_dqns"-->
+                    <!--android:background="@drawable/circletext_bg"-->
+                    <!--android:text="0"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textColor="@android:color/white" />-->
+
+            <!--</RelativeLayout>-->
 
             <TextView
                 android:layout_width="match_parent"

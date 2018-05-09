@@ -13,7 +13,7 @@
         android:background="@color/logoScreenBackground"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="16dp">
 
         <com.njau.agricultural_assistant.Topbar
             android:id="@+id/topbar"
@@ -66,7 +66,7 @@
                 android:layout_toRightOf="@id/viewName"
                 android:background="@null"
                 android:ems="19"
-                android:hint="  用户名"
+                android:hint="用户名"
                 android:textColorHint="@color/colorCursor"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="15sp" />
@@ -162,6 +162,7 @@
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="15sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_phone"
             android:layout_width="wrap_content"
@@ -205,6 +206,7 @@
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="15sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rl_email"
             android:layout_width="wrap_content"
@@ -249,13 +251,65 @@
                 android:textSize="15sp" />
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_xb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_email"
+            android:background="@drawable/rectangle_edittext"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="122dp">
+
+            <TextView
+                android:id="@+id/iv_xb"
+                android:layout_width="45dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="15dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="15dp"
+                android:text="@string/fa_sex" />
+
+            <View
+                android:id="@+id/xb"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_xb"
+                android:background="@color/colorCursor" />
+
+            <RadioGroup
+                android:id="@+id/sex_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/xb"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_boy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="男"
+                    android:checked="true"
+                    android:textColor="@color/colorCursor"
+                    />
+
+                <RadioButton
+                    android:id="@+id/radio_girl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="女"
+                    android:textColor="@color/colorCursor" />
+            </RadioGroup>
+        </RelativeLayout>
         <Button
             android:id="@+id/btn_register"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="38dp"
+            android:layout_marginBottom="70dp"
             android:background="@drawable/round_corner_bg"
             android:gravity="center"
             android:padding="10dp"
