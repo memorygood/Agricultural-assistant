@@ -39,6 +39,7 @@ public class NyjsActivity extends Activity {
     List<Map<String, Object>> list1;
     // 创建等待框
     private ProgressDialog dialog;
+    String jslx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,10 @@ public class NyjsActivity extends Activity {
         dialog.setMessage("加载中...");
         dialog.setCancelable(false);
         dialog.show();
+        Intent intent = getIntent();
+        intent.getExtras();
+        Bundle data = intent.getExtras();
+        jslx=data.getString("jslx");
         Topbar topbar = (Topbar) findViewById(R.id.topbar);
         topbar.setRightButtonVisibility(false);
         topbar.setOnLeftAndRightClickListener(new Topbar.OnLeftAndRightClickListener() {
@@ -72,7 +77,7 @@ public class NyjsActivity extends Activity {
 
         public void run() {
             try {
-                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyjslist");
+                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/nyjslist?jslx="+jslx);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(8000); // 设置超时时间
                 connection.setReadTimeout(8000);

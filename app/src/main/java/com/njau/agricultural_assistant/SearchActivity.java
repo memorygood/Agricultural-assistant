@@ -21,10 +21,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,7 +55,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.activity_search);
         Topbar topbar = (Topbar) findViewById(R.id.topbar);
         mSearchView = (SearchView) findViewById(R.id.searchEdit);
-        listView = findViewById(R.id.td_listview);
+        listView = findViewById(R.id.td_searchlistview);
 
 
         topbar.setRightButtonVisibility(false);
@@ -77,67 +79,60 @@ public class SearchActivity extends Activity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 str = query;
-                dialog = new ProgressDialog(SearchActivity.this);
-                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置进度条的形式为圆形转动的进度条
-                dialog.setTitle("提示");
-                dialog.setMessage("加载中...");
-                dialog.setCancelable(false);
-                dialog.show();
                 new Thread(new SearchActivity.SearchListThread()).start();
                 return false;
             }
 
+            // 当搜索内容改变时触发该方法
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
-            }
-
-            // 当搜索内容改变时触发该方法 @Override
-//            public boolean onQueryTextChange(String newText) {
-//                if (!TextUtils.isEmpty(newText)){
-//                    mListView.setFilterText(newText);
-//                }else{
-//                    mListView.clearTextFilter();
-//                }
-//                return false;
-//            }
+           }
         });
     }
     public class SearchListThread implements Runnable {
 
         public void run() {
             try {
-                URL url = new URL("http://192.168.43.64:8080/springmvc_mybatis/ssxxlist?str="+str);
+                String urlstr = "http://192.168.43.64:8080/springmvc_mybatis/ssxxlist";
+                String params = "str="+str;
+                URL url = new URL(urlstr);
                 connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(8000); // 设置超时时间
-                connection.setReadTimeout(8000);
-                connection.setRequestMethod("GET");
-                InputStream in = connection.getInputStream();
-                //下面对获取到的输入流进行读取
-                reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder response = new StringBuilder();
-                String line;
-                String userinfo;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                String json = response.toString();
-                Gson gson = new Gson();
-                list1 = getListMaps("result",json);;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                connection.setConnectTimeout(5*1000);
+                connection.setReadTimeout(5*1000);
+                //设置是否向httpURLConnection写入内容
+                //post请求必须设置为true,因为post请求参数是否写在http正文中
+                connection.setDoOutput(true);
+                //设置是否从HttpURLConnection读入内容，默认为true
+                connection.setDoInput(true);
+                //设置是否使用缓存，post请求不使用缓存
+                connection.setUseCaches(false);
+                //设置请求方法  注意大小写!
+                connection.setRequestMethod("POST");
+                //设置字符集
+                connection.setRequestProperty("Charset","utf-8");
+                OutputStream os = connection.getOutputStream();
+                os.write(params.getBytes());
+                os.flush();
+                os.close();
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream is = connection.getInputStream();
+                    StringBuilder sb = new StringBuilder();
+                    byte[] bytes = new byte[1024];
+                    int i = 0;
+                    while ((i = is.read(bytes)) != -1) {
+                        sb.append(new String(bytes, 0, i, "utf-8"));
                     }
+                    is.close();
+                    String json = sb.toString();
+                    Gson gson = new Gson();
+                    list1 = getListMaps("result", json);
                 }
+                } catch (MalformedURLException e) {
+                e.printStackTrace();
+                } catch (IOException e) {
+                e.printStackTrace();
+                 }finally {
                 if (connection != null) {
                     connection.disconnect();
                 }
@@ -145,30 +140,35 @@ public class SearchActivity extends Activity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    SimpleAdapter simpleAdapter = new SimpleAdapter(SearchActivity.this,list1,
-                            R.layout.news_list_item,
-                            new String[]{"c_title","c_fbsj"},
-                            new int[]{R.id.news_listitem_title,R.id.news_listitem_datetime});
-                    listView.setAdapter(simpleAdapter);
-                    dialog.dismiss();
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Map<String,Object> xx = list1.get(position);
-                            String cid = xx.get("c_id").toString();
-                            String xxlx = xx.get("c_xxlx").toString();
-                            Intent intent=new Intent();
-                            intent.setClass(SearchActivity.this,NewsDetail.class);
-                            //利用bundle来存取数据
-                            Bundle bundle=new Bundle();
-                            bundle.putString("cid",cid);
-                            bundle.putString("path",xxlx);
-                            bundle.putString("activity","SearchActivity");
-                            //再把bundle中的数据传给intent，以传输过去
-                            intent.putExtras(bundle);
-                            startActivityForResult(intent,0);
-                        }
-                    });
+                    if(list1.size()!=0) {
+                        SimpleAdapter simpleAdapter = new SimpleAdapter(SearchActivity.this, list1,
+                                R.layout.news_list_item,
+                                new String[]{"c_title", "c_fbsj"},
+                                new int[]{R.id.news_listitem_title, R.id.news_listitem_datetime});
+                        listView.setAdapter(simpleAdapter);
+                        //  dialog.dismiss();
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Map<String, Object> xx = list1.get(position);
+                                String cid = xx.get("c_id").toString();
+                                String xxlx = xx.get("c_xxlx").toString();
+                                Intent intent = new Intent();
+                                intent.setClass(SearchActivity.this, NewsDetail.class);
+                                //利用bundle来存取数据
+                                Bundle bundle = new Bundle();
+                                bundle.putString("cid", cid);
+                                bundle.putString("path", xxlx);
+                                bundle.putString("activity", "SearchActivity");
+                                //再把bundle中的数据传给intent，以传输过去
+                                intent.putExtras(bundle);
+                                startActivityForResult(intent, 0);
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(SearchActivity.this, "无相关信息", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

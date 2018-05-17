@@ -32,7 +32,10 @@ public class MainActivity extends Activity {
             R.mipmap.sb,
             R.mipmap.rl,
             R.mipmap.sczx,
-            R.mipmap.xwj,
+            R.mipmap.zp,
+            R.mipmap.yz,
+            R.mipmap.nj,
+            R.mipmap.sy,
             R.mipmap.nywk,
             R.mipmap.sc,
             R.mipmap.grxx,
@@ -44,7 +47,10 @@ public class MainActivity extends Activity {
             "农业政策",
             "农业要闻",
             "市场资讯",
-            "农业科技",
+            "栽培技术",
+            "养殖技术",
+            "农机技术",
+            "兽药技术",
             "农业微课",
             "收藏",
             "我的",
@@ -123,22 +129,46 @@ public class MainActivity extends Activity {
                         break;
                     case 3:
                         intent = new Intent(MainActivity.this, NyjsActivity.class);
+                        Bundle bundle1=new Bundle();
+                        bundle1.putString("jslx","1");
+                        intent.putExtras(bundle1);
                         startActivity(intent);
                         break;
                     case 4:
-                        intent = new Intent(MainActivity.this, Video.class);
+                        intent = new Intent(MainActivity.this, NyjsActivity.class);
+                        Bundle bundle2=new Bundle();
+                        bundle2.putString("jslx","2");
+                        intent.putExtras(bundle2);
                         startActivity(intent);
                         break;
                     case 5:
-                        intent = new Intent(MainActivity.this, YhscActivity.class);
+                        intent = new Intent(MainActivity.this, NyjsActivity.class);
+                        Bundle bundle3=new Bundle();
+                        bundle3.putString("jslx","3");
+                        intent.putExtras(bundle3);
                         startActivity(intent);
                         break;
                     case 6:
+                        intent = new Intent(MainActivity.this, NyjsActivity.class);
+                        Bundle bundle4=new Bundle();
+                        bundle4.putString("jslx","4");
+                        intent.putExtras(bundle4);
+                        startActivity(intent);
+                        break;
+                    case 7:
+                        intent = new Intent(MainActivity.this, NywkActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 8:
+                        intent = new Intent(MainActivity.this, YhscActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 9:
                         finish();
                         intent = new Intent(MainActivity.this, MineActivity.class);
                         startActivity(intent);
                         break;
-                    case 7:
+                    case 10:
                         finish();
                         intent = new Intent(MainActivity.this, SearchActivity.class);
                         startActivity(intent);
