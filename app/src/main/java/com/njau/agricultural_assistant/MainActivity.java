@@ -35,7 +35,9 @@ public class MainActivity extends Activity {
             R.mipmap.xwj,
             R.mipmap.nywk,
             R.mipmap.sc,
-            R.mipmap.grxx};
+            R.mipmap.grxx,
+            R.mipmap.search
+            };
 
     //定义图标下方的名称数组
     private String[] name = {
@@ -45,7 +47,8 @@ public class MainActivity extends Activity {
             "农业科技",
             "农业微课",
             "收藏",
-            "我的"
+            "我的",
+            "搜索"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +136,11 @@ public class MainActivity extends Activity {
                     case 6:
                         finish();
                         intent = new Intent(MainActivity.this, MineActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 7:
+                        finish();
+                        intent = new Intent(MainActivity.this, SearchActivity.class);
                         startActivity(intent);
                         break;
                 }

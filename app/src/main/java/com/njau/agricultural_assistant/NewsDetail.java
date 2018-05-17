@@ -84,6 +84,12 @@ public class NewsDetail extends Activity {
 				}else if(activityname.equals("SczxActivity")){
 					Intent intent3 = new Intent(NewsDetail.this, SczxActivity.class);
 					startActivity(intent3);
+				}else if(activityname.equals("YhscActivity")){
+					Intent intent3 = new Intent(NewsDetail.this, YhscActivity.class);
+					startActivity(intent3);
+				}else if(activityname.equals("SearchActivity")){
+					Intent intent3 = new Intent(NewsDetail.this, SearchActivity.class);
+					startActivity(intent3);
 				}
 			}
 			@Override

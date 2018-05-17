@@ -34,6 +34,7 @@
         <activity android:name=".NewsDetail"></activity>
         <activity android:name=".Video"></activity>
         <activity android:name=".Resetpwd"></activity>
+        <activity android:name=".SearchActivity"></activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:noHistory="true"
