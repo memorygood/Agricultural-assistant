@@ -32,7 +32,8 @@
         <activity android:name=".SczxActivity"></activity>
         <activity android:name=".YhscActivity"></activity>
         <activity android:name=".NewsDetail"></activity>
-        <activity android:name=".Video"></activity>
+        <activity android:name=".Video"
+            android:hardwareAccelerated="true"  ></activity>
         <activity android:name=".Resetpwd"></activity>
         <activity android:name=".SearchActivity"></activity>
         <activity android:name=".NywkActivity"></activity>

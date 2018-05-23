@@ -30,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     public static Tencent mTencent;
     private UserInfo mUserInfo;
     private BaseUiListener mIUiListener;
+    Handler successHandler = new Handler();
     EditText userName,password;
     BufferedReader reader;
     HttpURLConnection  connection;
@@ -208,12 +210,12 @@ public class LoginActivity extends AppCompatActivity {
                                     if(((JSONObject) o).getString("gender").equals("男")){
                                         xb="1";
                                     }else xb="2";
-                                    Toast.makeText(getApplicationContext(), ((JSONObject) o).getString("nickname")+((JSONObject) o).getString("gender"), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getApplicationContext(), ((JSONObject) o).getString("nickname")+((JSONObject) o).getString("gender"), Toast.LENGTH_SHORT).show();
                                     Log.v("UserInfo",o.toString());
-                                    Intent intent1 = new Intent(LoginActivity.this,MainActivity.class);
-                                    startActivity(intent1);
                                     finish();
                                     new Thread(new LoginActivity.RegisterThread()).start();
+                                    Intent intent1 = new Intent(LoginActivity.this,MainActivity.class);
+                                    startActivity(intent1);
                                 } catch (JSONException e) {
                                     // TODO Auto-generated catch block
                                     e.printStackTrace();
@@ -280,65 +282,77 @@ public class LoginActivity extends AppCompatActivity {
     //提交注册信息
     public class RegisterThread implements Runnable {
         String code;
+
         public void run() {
-            String address = "http://192.168.43.64:8080/springmvc_mybatis/registe?username=" + java.net.URLEncoder.encode(username) +
-                    "&xb=" + java.net.URLEncoder.encode(xb);
             try {
-                URL url = new URL(address);
+                String urlstr = "http://192.168.43.64:8080/springmvc_mybatis/qqlogin";
+                String params = "username=" + username + "&xb" + xb;
+                URL url = new URL(urlstr);
                 connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(8000); // 设置超时时间
-                connection.setReadTimeout(8000);
-                connection.setRequestProperty("Charset", "UTF-8");
-                connection.setRequestMethod("GET");
-                InputStream in = connection.getInputStream();
-                //下面对获取到的输入流进行读取
-                reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
+                connection.setConnectTimeout(5 * 1000);
+                connection.setReadTimeout(5 * 1000);
+                //设置是否向httpURLConnection写入内容
+                //post请求必须设置为true,因为post请求参数是否写在http正文中
+                connection.setDoOutput(true);
+                //设置是否从HttpURLConnection读入内容，默认为true
+                connection.setDoInput(true);
+                //设置是否使用缓存，post请求不使用缓存
+                connection.setUseCaches(false);
+                //设置请求方法  注意大小写!
+                connection.setRequestMethod("POST");
+                //设置字符集
+                connection.setRequestProperty("Charset", "utf-8");
+                OutputStream os = connection.getOutputStream();
+                os.write(params.getBytes());
+                os.flush();
+                os.close();
+                if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream is = connection.getInputStream();
+                    StringBuilder sb = new StringBuilder();
+                    byte[] bytes = new byte[1024];
+                    int i = 0;
+                    while ((i = is.read(bytes)) != -1) {
+                        sb.append(new String(bytes, 0, i, "utf-8"));
+                    }
+                    is.close();
+                    String json = sb.toString();
+                    Gson gson = new Gson();
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map = gson.fromJson(json, map.getClass());
+                    Map<String, Object> user = new HashMap<String, Object>();
+                    user = (Map<String, Object>) map.get("result");
+                    userid = user.get("c_id").toString();
                 }
-                String json = response.toString();
-                Gson gson = new Gson();
-                Map<String, Object> map = new HashMap<String, Object>();
-                map = gson.fromJson(json, map.getClass());
-                code = (String) map.get("code");
             } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
                 if (connection != null) {
                     connection.disconnect();
                 }
             }
         }
-    }
-    private Handler successHandler = new Handler(){
-        public void handleMessage(android.os.Message msg) {
-            super.handleMessage(msg);
-            switch(msg.what){
-                case 0:
-                    dialog.dismiss();
-                    finish();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-                case 1:
-                    dialog.dismiss();
-                    Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                    break;
+
+        private Handler successHandler = new Handler() {
+            public void handleMessage(android.os.Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case 0:
+                        dialog.dismiss();
+                        finish();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        dialog.dismiss();
+                        Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
+
+            ;
         };
-    };
+    }
 }
 
