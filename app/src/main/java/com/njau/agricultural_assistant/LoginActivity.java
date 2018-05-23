@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
     public static Tencent mTencent;
     private UserInfo mUserInfo;
     private BaseUiListener mIUiListener;
-    Handler successHandler = new Handler();
     EditText userName,password;
     BufferedReader reader;
     HttpURLConnection  connection;
@@ -333,26 +332,24 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }
-
-        private Handler successHandler = new Handler() {
-            public void handleMessage(android.os.Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case 0:
-                        dialog.dismiss();
-                        finish();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        dialog.dismiss();
-                        Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
-                        break;
-                }
+    }   private Handler successHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    dialog.dismiss();
+                    finish();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    break;
+                case 1:
+                    dialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                    break;
             }
+        }
 
-            ;
-        };
-    }
+        ;
+    };
 }
 
